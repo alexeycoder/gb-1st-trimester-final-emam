@@ -33,12 +33,46 @@ do
 
 static string[] GetFilteredArray(string[] array, int maxLength)
 {
-	return new string[] { };
+	int count = 0;
+	string[] tempArray = new string[array.Length];
+	for (int i = 0; i < array.Length; ++i)
+	{
+		if (array[i].Length <= maxLength)
+		{
+			tempArray[count] = array[i];
+			++count;
+		}
+	}
+
+	string[] result = new string[count];
+	for (int i = 0; i < count; ++i)
+	{
+		result[i] = tempArray[i];
+	}
+	return result;
 }
 
 static void PrintArrayStr(string[] array, ConsoleColor foreColor)
 {
+	var bkpColor = Console.ForegroundColor;
+	Console.ForegroundColor = foreColor;
 
+	int lastIndex = array.Length - 1;
+	if (lastIndex >= 0)
+	{
+		Console.Write("[ ");
+		for (int i = 0; i < lastIndex; ++i)
+		{
+			Console.Write($"\"{array[i]}\", ");
+		}
+		Console.Write($"\"{array[lastIndex]}\" ]");
+	}
+	else
+	{
+		Console.Write("[ ]");
+	}
+
+	Console.ForegroundColor = bkpColor;
 }
 
 static string[] GetUserInputArrayStr(string prompt, int size)
